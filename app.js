@@ -61,7 +61,27 @@ async function deposit(cardNumber) {
   `)
 }
 
-function viewTransactions() {}
+function viewTransactions(cardNumber) {
+  const index = cardNumber.indexOf(cardNumber);
+
+  if (index !== -1) {
+    const transactions = accounts[index].transactions;
+
+    if (transactions.length === 0) {
+      console.log("Tidak ada transaksi yang tersedia.");
+    } else {
+      console.log("Riwayat Transaksi:");
+      transactions.forEach((transaction, index) => {
+        console.log(`Transaksi ke-${index + 1}:`);
+        console.log(`Jenis: ${transaction.jenis}`);
+        console.log(`Jumlah: ${transaction.jumlah}`);
+        console.log("--------------------------------");
+      });
+    }
+  } else {
+    console.log("Nomor kartu tidak valid.");
+  }
+}
 
 function askQuestion(question) {
   return new Promise((resolve) => {
@@ -84,6 +104,11 @@ async function main() {
     switch (parseInt(choice)) {
       case 1:
         break;
+      case 3:
+        const cardNumber = await askQuestion("Masukkan nomor kartu: ");
+        viewTransactions(cardNumber);
+        break;
+
     }
   } while (choice !== 4);
 }
