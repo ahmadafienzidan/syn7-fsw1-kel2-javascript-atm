@@ -24,6 +24,7 @@ const accountB = {
 const accounts = [accountA, accountB];
 
 
+
 const cardNumber = accounts.map((account) => {
   return account["cardNumber"].replace(/ /g,"")
 })
@@ -36,8 +37,27 @@ function validateCardNumber(input) {
   }
 }
 
+async function validatePin(account) {
+  let attempts = 3;
+  while (attempts > 0) {
+    const enteredPin = await askQuestion("Masukkan PIN Anda: ");
+    if (enteredPin === account.pin) {
+      console.log("PIN Benar.");
+      return true;
+    } else {
+      console.log(`PIN Salah. ${--attempts} percobaan tersisa.`);
+    }
+  }
+  console.log("Anda telah melebihi batas percobaan.");
+  return false;
+}
 
-function validatePin() {}
+
+
+
+
+
+
 
 
 function checkBalance(cardNumber, pin) {
@@ -69,7 +89,7 @@ async function deposit(cardNumber) {
     saldo: ${accounts[index].balance}
     transactions: ${JSON.stringify(accounts[index].transactions, null, "  ")}
   `)
-}
+} 
  
 function viewTransactions(cardNumber) {
   const index = cardNumber.indexOf(cardNumber);
@@ -91,7 +111,7 @@ function viewTransactions(cardNumber) {
   } else {
     console.log("Nomor kartu tidak valid.");
   }
-} 
+}  
 
 function askQuestion(question) {
   return new Promise((resolve) => {
