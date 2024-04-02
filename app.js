@@ -23,7 +23,19 @@ const accountB = {
 
 const accounts = [accountA, accountB];
 
-function validateCardNumber() {}
+
+
+const cardNumber = accounts.map((account) => {
+  return account["cardNumber"].replace(/ /g,"")
+})
+
+function validateCardNumber(input) {
+  if (cardNumber.includes(input.toString())) {
+    return true
+  } else {
+    return false
+  }
+}
 
 async function validatePin(account) {
   let attempts = 3;
@@ -40,9 +52,46 @@ async function validatePin(account) {
   return false;
 }
 
-function checkBalance() {}
 
-function deposit() {}
+
+
+
+
+
+
+
+function checkBalance(cardNumber, pin) {
+  const findAccount = accounts.find((acc) => acc.cardNumber === cardNumber && acc.pin === pin);
+  if (findAccount) {
+    console.log("Saldo Anda saat ini adalah: " + findAccount.balance);
+  } else {
+    console.log("Nomor kartu atau PIN yang Anda masukkan salah.");
+  }
+}
+
+
+async function deposit(cardNumber) {
+  let index = cardNumbers.indexOf(cardNumber)
+  const jenis = "deposit"
+  const jumlah = await askQuestion("Jumlah deposit: ")
+
+  // add to transaction
+  accounts[index].transactions.push({
+    jenis,
+    jumlah
+  })
+  
+  // change balance
+  accounts[index].balance += parseInt(jumlah)
+  
+  console.log(`
+    status: success
+    saldo: ${accounts[index].balance}
+    transactions: ${JSON.stringify(accounts[index].transactions, null, "  ")}
+  `)
+}
+
+
 
 function viewTransactions() {}
 
@@ -66,6 +115,11 @@ async function main() {
 
     switch (parseInt(choice)) {
       case 1:
+        const cardNumber = await askQuestion("Masukkan nomor kartu Anda: ");
+        const pin = await askQuestion("Masukkan PIN Anda: ");
+        checkBalance(cardNumber, pin);
+        break;
+      case 2:
         break;
     }
   } while (choice !== 4);
