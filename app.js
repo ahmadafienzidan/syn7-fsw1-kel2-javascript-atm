@@ -23,10 +23,35 @@ const accountB = {
 
 const accounts = [accountA, accountB];
 
+const cardNumbers = accounts.map((account) => {
+  return account["cardNumber"].replace(/ /g,"")
+})
+
 function validateCardNumber() {}
 function validatePin() {}
 function checkBalance() {}
-function deposit() {}
+
+async function deposit(cardNumber) {
+  let index = cardNumbers.indexOf(cardNumber)
+  const jenis = "deposit"
+  const jumlah = await askQuestion("Jumlah deposit: ")
+
+  // add to transaction
+  accounts[index].transactions.push({
+    jenis,
+    jumlah
+  })
+  
+  // change balance
+  accounts[index].balance += parseInt(jumlah)
+  
+  console.log(`
+    status: success
+    saldo: ${accounts[index].balance}
+    transactions: ${JSON.stringify(accounts[index].transactions, null, "  ")}
+  `)
+}
+
 function viewTransactions() {}
 
 function askQuestion(question) {
