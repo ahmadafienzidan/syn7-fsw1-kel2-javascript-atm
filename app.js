@@ -1,4 +1,4 @@
-const readLine = require('readline');
+const readLine = require("readline");
 
 const rl = readLine.createInterface({
   input: process.stdin,
@@ -6,18 +6,18 @@ const rl = readLine.createInterface({
 });
 
 const accountA = {
-  name: 'John Doe',
+  name: "John Doe",
   balance: 0,
-  pin: '123456',
-  cardNumber: '1234 5678 1234 5678',
+  pin: "123456",
+  cardNumber: "1234 5678 1234 5678",
   transactions: [],
 };
 
 const accountB = {
-  name: 'Jane Doe',
+  name: "Jane Doe",
   balance: 0,
-  pin: '654321',
-  cardNumber: '5678 1234 5678 1234',
+  pin: "654321",
+  cardNumber: "5678 1234 5678 1234",
   transactions: [],
 };
 
@@ -39,13 +39,13 @@ function askQuestion(question) {
 
 async function main() {
   do {
-    console.log('Menu ATM:');
-    console.log('1. Cek Saldo');
-    console.log('2. Setor Tunai');
-    console.log('3. Riwayat Transaksi');
-    console.log('4. Keluar');
+    console.log("Menu ATM:");
+    console.log("1. Cek Saldo");
+    console.log("2. Setor Tunai");
+    console.log("3. Riwayat Transaksi");
+    console.log("4. Keluar");
 
-    choice = await askQuestion('Masukkan pilihan Anda: ');
+    choice = await askQuestion("Masukkan pilihan Anda: ");
 
     switch (parseInt(choice)) {
       case 1:
