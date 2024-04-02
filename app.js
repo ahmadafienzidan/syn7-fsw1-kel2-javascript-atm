@@ -25,7 +25,16 @@ const accounts = [accountA, accountB];
 
 function validateCardNumber() {}
 function validatePin() {}
-function checkBalance() {}
+
+function checkBalance(cardNumber, pin) {
+  const findAccount = accounts.find((acc) => acc.cardNumber === cardNumber && acc.pin === pin);
+  if (findAccount) {
+    console.log("Saldo Anda saat ini adalah: " + findAccount.balance);
+  } else {
+    console.log("Nomor kartu atau PIN yang Anda masukkan salah.");
+  }
+}
+
 function deposit() {}
 function viewTransactions() {}
 
@@ -49,6 +58,11 @@ async function main() {
 
     switch (parseInt(choice)) {
       case 1:
+        const cardNumber = await askQuestion("Masukkan nomor kartu Anda: ");
+        const pin = await askQuestion("Masukkan PIN Anda: ");
+        checkBalance(cardNumber, pin);
+        break;
+      case 2:
         break;
     }
   } while (choice !== 4);
