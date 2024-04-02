@@ -23,7 +23,18 @@ const accountB = {
 
 const accounts = [accountA, accountB];
 
-function validateCardNumber() {}
+const cardNumber = accounts.map((account) => {
+  return account["cardNumber"].replace(/ /g,"")
+})
+
+function validateCardNumber(input) {
+  if (cardNumber.includes(input.toString())) {
+    return true
+  } else {
+    return false
+  }
+}
+
 function validatePin() {}
 function checkBalance() {}
 function deposit() {}
