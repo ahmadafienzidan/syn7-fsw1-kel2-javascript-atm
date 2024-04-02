@@ -23,8 +23,22 @@ const accountB = {
 
 const accounts = [accountA, accountB];
 
-function validateCardNumber() {}
+
+const cardNumber = accounts.map((account) => {
+  return account["cardNumber"].replace(/ /g,"")
+})
+
+function validateCardNumber(input) {
+  if (cardNumber.includes(input.toString())) {
+    return true
+  } else {
+    return false
+  }
+}
+
+
 function validatePin() {}
+
 
 function checkBalance(cardNumber, pin) {
   const findAccount = accounts.find((acc) => acc.cardNumber === cardNumber && acc.pin === pin);
@@ -35,7 +49,29 @@ function checkBalance(cardNumber, pin) {
   }
 }
 
-function deposit() {}
+
+async function deposit(cardNumber) {
+  let index = cardNumbers.indexOf(cardNumber)
+  const jenis = "deposit"
+  const jumlah = await askQuestion("Jumlah deposit: ")
+
+  // add to transaction
+  accounts[index].transactions.push({
+    jenis,
+    jumlah
+  })
+  
+  // change balance
+  accounts[index].balance += parseInt(jumlah)
+  
+  console.log(`
+    status: success
+    saldo: ${accounts[index].balance}
+    transactions: ${JSON.stringify(accounts[index].transactions, null, "  ")}
+  `)
+}
+
+
 function viewTransactions() {}
 
 function askQuestion(question) {
