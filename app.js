@@ -38,7 +38,17 @@ function validateCardNumber(input) {
 
 
 function validatePin() {}
-function checkBalance() {}
+
+
+function checkBalance(cardNumber, pin) {
+  const findAccount = accounts.find((acc) => acc.cardNumber === cardNumber && acc.pin === pin);
+  if (findAccount) {
+    console.log("Saldo Anda saat ini adalah: " + findAccount.balance);
+  } else {
+    console.log("Nomor kartu atau PIN yang Anda masukkan salah.");
+  }
+}
+
 
 async function deposit(cardNumber) {
   let index = cardNumbers.indexOf(cardNumber)
@@ -60,7 +70,7 @@ async function deposit(cardNumber) {
     transactions: ${JSON.stringify(accounts[index].transactions, null, "  ")}
   `)
 }
-
+ 
 function viewTransactions(cardNumber) {
   const index = cardNumber.indexOf(cardNumber);
 
@@ -81,7 +91,7 @@ function viewTransactions(cardNumber) {
   } else {
     console.log("Nomor kartu tidak valid.");
   }
-}
+} 
 
 function askQuestion(question) {
   return new Promise((resolve) => {
@@ -103,6 +113,11 @@ async function main() {
 
     switch (parseInt(choice)) {
       case 1:
+        const cardNumber = await askQuestion("Masukkan nomor kartu Anda: ");
+        const pin = await askQuestion("Masukkan PIN Anda: ");
+        checkBalance(cardNumber, pin);
+        break;
+      case 2:
         break;
       case 3:
         const cardNumber = await askQuestion("Masukkan nomor kartu: ");
