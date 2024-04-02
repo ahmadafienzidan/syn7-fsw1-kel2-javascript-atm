@@ -24,9 +24,26 @@ const accountB = {
 const accounts = [accountA, accountB];
 
 function validateCardNumber() {}
-function validatePin() {}
+
+async function validatePin(account) {
+  let attempts = 3;
+  while (attempts > 0) {
+    const enteredPin = await askQuestion("Masukkan PIN Anda: ");
+    if (enteredPin === account.pin) {
+      console.log("PIN Benar.");
+      return true;
+    } else {
+      console.log(`PIN Salah. ${--attempts} percobaan tersisa.`);
+    }
+  }
+  console.log("Anda telah melebihi batas percobaan.");
+  return false;
+}
+
 function checkBalance() {}
+
 function deposit() {}
+
 function viewTransactions() {}
 
 function askQuestion(question) {
